@@ -86,11 +86,16 @@ jobs:
           rm dev/common/color_definitions.scss
           rm dev/common/generated-colors.scss
 
-      - name: Commit and push changes with Debugging
+      - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
           git add -A  # Stages all new, modified, and deleted files
-          git commit -m "Automated extraction and SCSS compilation"
-          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/msarson/discourse-highlightjs-clarion.git" HEAD:master
-        continue-on-error: true  # Prevent immediate failure, see what happens
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            git commit -m "Automated extraction and SCSS compilation"
+            git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/msarson/discourse-highlightjs-clarion.git" HEAD:master
+          fi
+        
+        
