@@ -10,12 +10,18 @@ jobs:
       # Checkout the dev repository
       - name: Checkout Dev Repository
         uses: actions/checkout@v3
+        with:
+          submodules: true  # Ensures submodules are checked out as well
 
-      # Pull the latest changes from the production repository
-      - name: Pull Production Repository
+      # Manage the common submodule
+      - name: Manage Submodule
         run: |
-          git submodule add https://github.com/msarson/discourse-highlightjs-clarion.git common
-          git submodule update --remote --merge
+          if [ ! -d "common" ]; then
+            git submodule add https://github.com/msarson/discourse-highlightjs-clarion.git common
+          else
+            echo "Updating existing submodule..."
+            git submodule update --remote --merge
+          fi
 
       # Set up Node.js environment
       - name: Set up Node.js
@@ -64,6 +70,6 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
           git add -A  # Stages all new, modified, and deleted files
-          git commit -m "Automated extraction and SCSS compilation"
-          git push origin HEAD:main
+          git commit -m "Automated extraction and SCSS compilation" || echo "No changes to commit"
+          git push origin master  # Push to the correct branch
         continue-on-error: true  # Prevent immediate failure, see what happens
