@@ -17,7 +17,7 @@ if (!fs.existsSync(inputFilePath)) {
             const stat = fs.statSync(fullPath);
 
             // Skip the node_modules directory
-            if (file === 'node_modules') {
+            if (file === 'node_modules' || file === '.git') {
                 console.log(`[DIR]  ${file} (skipped)`);
                 return;
             }
