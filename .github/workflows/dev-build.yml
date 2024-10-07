@@ -38,19 +38,20 @@ jobs:
         working-directory: dev
         run: npm install
 
-      # Generate Color Variables
+     # Generate Color Variables
       - name: Generate Color Variables
-        run: |
-          node dev/generate-colors.js
+        working-directory: dev
+        run: node generate-colors.js
+
 
      # Verify generated colors file with working-directory
       - name: Verify generated colors file
         working-directory: dev
-        run: cat common/common/generated-colors.scss
+        run: cat common/generated-colors.scss
 
       # Modify SCSS files
       - name: Modify SCSS files
-        run: echo '@import "./generated-colors.scss";' | cat - dev/common/common/common.scss > temp && mv temp dev/common/common/common.scss
+        run: echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
 
       # Compile SCSS
       - name: Compile SCSS
@@ -60,9 +61,9 @@ jobs:
       # Clean up SCSS files
       - name: Clean up SCSS files
         run: |
-          rm dev/common/common/common.scss
-          rm dev/common/common/color_definitions.scss
-          rm dev/common/common/generated-colors.scss
+          rm dev/common/common.scss
+          rm dev/common/color_definitions.scss
+          rm dev/common/generated-colors.scss
 
       # Commit and push changes back to the dev repository
       - name: Commit and push changes
