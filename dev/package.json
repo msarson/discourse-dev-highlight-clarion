@@ -1,0 +1,14 @@
+{
+  "name": "highlightjs-clarion-test",
+  "version": "1.0.0",
+  "description": "Dev environment for testing Clarion highlighter and compiling SCSS",
+  "scripts": {
+    "build-scss": "sass common/common.scss:common/styles.css",
+    "start": "http-server ./"  
+  },
+  "dependencies": {
+    "highlight.js": "^11.6.0",
+    "sass": "^1.54.0",
+    "http-server": "^14.1.0"
+  }
+}

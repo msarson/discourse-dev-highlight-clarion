@@ -1,0 +1,113 @@
+:root {
+  --clarion-keyword-hard-light: #0000FF; /* Light mode color */
+  --clarion-keyword-hard-dark: #569CD6; /* Dark mode color */
+  --clarion-keyword-soft-light: #0000FF; /* Light mode color */
+  --clarion-keyword-soft-dark: #9CDCFE; /* Dark mode color */
+  --clarion-function-light: #795E26; /* Light mode color */
+  --clarion-function-dark: #DCDCAA; /* Dark mode color */
+  --clarion-implicit-light: #2B91AF; /* Light mode color */
+  --clarion-implicit-dark: #C586C0; /* Dark mode color */
+  --clarion-comment-light: #008000; /* Light mode color */
+  --clarion-comment-dark: #6A9955; /* Dark mode color */
+  --clarion-string-light: #A31515; /* Light mode color */
+  --clarion-string-dark: #CE9178; /* Dark mode color */
+  --clarion-class-name-light: #2B91AF; /* Light mode color */
+  --clarion-class-name-dark: #4EC9B0; /* Dark mode color */
+  --clarion-type-light: #2B91AF; /* Light mode color */
+  --clarion-type-dark: #4EC9B0; /* Dark mode color */
+  --clarion-attribute-light: #333333; /* Light mode color */
+  --clarion-attribute-dark: #D4D4D4; /* Dark mode color */
+  --clarion-operator-light: #333333; /* Light mode color */
+  --clarion-operator-dark: #D4D4D4; /* Dark mode color */
+  --clarion-label-light: #795E26; /* Light mode color */
+  --clarion-label-dark: #D7BA7D; /* Dark mode color */
+  --clarion-class-label-light: #2B91AF; /* Light mode color */
+  --clarion-class-label-dark: #4EC9B0; /* Dark mode color */
+  --clarion-pciture-numeric-format-light: #FF4500; /* Light mode color */
+  --clarion-pciture-numeric-format-dark: #FFA500; /* Dark mode color */
+}
+
+.dark-mode {
+  --clarion-keyword-hard: var(--clarion-keyword-hard-dark);
+  --clarion-keyword-soft: var(--clarion-keyword-soft-dark);
+  --clarion-function: var(--clarion-function-dark);
+  --clarion-implicit: var(--clarion-implicit-dark);
+  --clarion-comment: var(--clarion-comment-dark);
+  --clarion-string: var(--clarion-string-dark);
+  --clarion-class-name: var(--clarion-class-name-dark);
+  --clarion-type: var(--clarion-type-dark);
+  --clarion-attribute: var(--clarion-attribute-dark);
+  --clarion-operator: var(--clarion-operator-dark);
+  --clarion-label: var(--clarion-label-dark);
+  --clarion-class-label: var(--clarion-class-label-dark);
+  --clarion-pciture-numeric-format: var(--clarion-pciture-numeric-format-dark);
+}
+
+.lang-clarion .hljs-keyword-hard {
+  color: var(--clarion-keyword-hard);
+  font-weight: bold;
+}
+
+.lang-clarion .hljs-keyword-soft {
+  color: var(--clarion-keyword-soft);
+  font-style: italic;
+}
+
+.lang-clarion .hljs-keyword-function {
+  color: var(--clarion-function);
+  font-style: italic;
+}
+
+.lang-clarion .hljs-keyword-implicit {
+  color: var(--clarion-implicit);
+}
+
+.lang-clarion .hljs-comment {
+  color: var(--clarion-comment);
+  font-style: italic;
+}
+
+.lang-clarion .hljs-string {
+  color: var(--clarion-string);
+}
+
+.lang-clarion .hljs-class-name {
+  color: var(--clarion-class-name);
+  font-weight: bold;
+}
+
+.lang-clarion .hljs-type {
+  color: var(--clarion-type);
+  font-style: italic;
+}
+
+.lang-clarion .hljs-attribute {
+  color: var(--clarion-attribute);
+  font-style: italic;
+}
+
+.lang-clarion .hljs-operator {
+  color: var(--clarion-operator);
+}
+
+.lang-clarion .hljs-label {
+  color: var(--clarion-label);
+  font-weight: bold;
+}
+
+.lang-clarion .hljs-function {
+  color: var(--clarion-function);
+  font-weight: bold;
+}
+
+.lang-clarion .hljs-class-label {
+  color: var(--clarion-class-label);
+  font-weight: bold;
+}
+
+.lang-clarion .hljs-picture-numeric-format {
+  color: var(--clarion-numeric-format);
+  font-weight: bold; /* Make numeric formats stand out */
+}
+
+/*# sourceMappingURL=styles.css.map */

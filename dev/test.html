@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarion Highlight.js Test</title>
+    <link rel="stylesheet" href="common/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script src="common/clarion-language.js"></script>
+    <style>
+        :root {
+            --background-color: #ffffff; /* Light mode background */
+            --text-color: #000000; /* Light mode text color */
+        }
+        .dark-mode {
+            --background-color: #333333; /* Dark mode background */
+            --text-color: #ffffff; /* Dark mode text color */
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        pre {
+            background-color: var(--background-color);
+            border: 1px solid var(--text-color);
+            padding: 10px;
+            overflow: auto;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            hljs.registerLanguage('clarion', clarion_language_definition);
+            // Assuming `api` is defined in common.js
+            if (typeof api !== 'undefined') {
+                api.registerHighlightJSLanguage("clarion", clarion_language_definition);
+            }
+            hljs.highlightAll();
+
+            const toggleButton = document.getElementById('toggle-theme');
+            toggleButton.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+            });
+        });
+    </script>
+</head>
+<body>
+    <button id="toggle-theme">Toggle Dark/Light Mode</button>
+    <pre><code class="lang-clarion">
+    ! Sample Clarion code
+    PROCEDURE Main
+        MESSAGE('Hello, World!')
+    END
+    </code></pre>
+</body>
+</html>
