@@ -1,10 +1,32 @@
 const fs = require('fs');
-
+const path = require('path');
 // Define input and output paths relative to the 'dev' directory
 const inputFilePath = '../common/common/color_definitions.scss'; // Adjusted path relative to dev
 const outputFilePath = 'common/generated-colors.scss';           // Output file within dev/common
 
+// Check if the input file exists before proceeding
+if (!fs.existsSync(inputFilePath)) {
+    console.error(`Input file not found: ${inputFilePath}`);
 
+    // List directory structure to help debug
+    console.log('Listing directories and files in the project:');
+    const listDirectory = (dirPath) => {
+        console.log(`\nDirectory: ${dirPath}`);
+        fs.readdirSync(dirPath).forEach(file => {
+            const fullPath = path.join(dirPath, file);
+            const stat = fs.statSync(fullPath);
+            if (stat.isDirectory()) {
+                console.log(`[DIR]  ${file}`);
+                listDirectory(fullPath); // Recursive call to list subdirectories
+            } else {
+                console.log(`[FILE] ${file}`);
+            }
+        });
+    };
+
+    listDirectory('../');  // List the directories from one level above the current working directory
+    process.exit(1);  // Exit the process with an error code
+}
 
 fs.readFile(inputFilePath, 'utf8', (err, data) => {
     if (err) {
