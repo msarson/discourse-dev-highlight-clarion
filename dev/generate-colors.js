@@ -8,13 +8,20 @@ const outputFilePath = 'common/generated-colors.scss';           // Output file 
 if (!fs.existsSync(inputFilePath)) {
     console.error(`Input file not found: ${inputFilePath}`);
 
-    // List directory structure to help debug
-    console.log('Listing directories and files in the project:');
+    // List directory structure to help debug, excluding node_modules
+    console.log('Listing directories and files in the project, skipping node_modules:');
     const listDirectory = (dirPath) => {
         console.log(`\nDirectory: ${dirPath}`);
         fs.readdirSync(dirPath).forEach(file => {
             const fullPath = path.join(dirPath, file);
             const stat = fs.statSync(fullPath);
+
+            // Skip the node_modules directory
+            if (file === 'node_modules') {
+                console.log(`[DIR]  ${file} (skipped)`);
+                return;
+            }
+
             if (stat.isDirectory()) {
                 console.log(`[DIR]  ${file}`);
                 listDirectory(fullPath); // Recursive call to list subdirectories
