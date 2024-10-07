@@ -49,9 +49,11 @@ jobs:
         working-directory: dev
         run: cat common/generated-colors.scss
 
-      # Modify SCSS files
+     # Modify SCSS files
       - name: Modify SCSS files
-        run: echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
+        working-directory: dev
+        run: echo '@import "./generated-colors.scss";' | cat - common/common.scss > temp && mv temp common/common.scss
+
 
       # Compile SCSS
       - name: Compile SCSS
