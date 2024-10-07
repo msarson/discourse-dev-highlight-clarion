@@ -40,6 +40,7 @@ jobs:
         run: |
           cp common/common/common.scss dev/common/common.scss
           cp common/common/color_definitions.scss dev/common/color_definitions.scss
+          cp common/common/clarion-language.js dev/common/clarion-language.js
 
       # List dev/common directory contents after copying
       - name: List dev/common directory contents after copying
