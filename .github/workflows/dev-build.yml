@@ -43,9 +43,10 @@ jobs:
         run: |
           node dev/generate-colors.js
 
-      # Check if generated-colors.scss exists
+     # Verify generated colors file with working-directory
       - name: Verify generated colors file
-        run: cat dev/common/common/generated-colors.scss
+        working-directory: dev
+        run: cat common/common/generated-colors.scss
 
       # Modify SCSS files
       - name: Modify SCSS files
