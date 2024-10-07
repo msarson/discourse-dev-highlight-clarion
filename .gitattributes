@@ -1,6 +1,3 @@
 # Set default behavior to automatically normalize line endings
 * text=auto
 
-# Explicitly declare text files you want to always normalize and convert to LF
-*.md text eol=lf
-*.js text eol=lf
