@@ -7,58 +7,68 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the dev repository
-      - name: Checkout Dev Repository
+      - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          submodules: true  # Ensures submodules are checked out as well
 
-      # Manage the common submodule
-      - name: Manage Submodule
+      - name: Pull latest production subtree
         run: |
-          if [ ! -d "common" ]; then
-            git submodule add https://github.com/msarson/discourse-highlightjs-clarion.git common
-          else
-            echo "Updating existing submodule..."
-            git submodule update --remote --merge
-          fi
+          git submodule update --init --recursive
+          git submodule update --remote --merge
 
-      # Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # Install Sass globally
       - name: Install Sass globally
         run: npm install -g sass
 
-      # Install dependencies in the dev folder
       - name: Install dependencies in dev folder
         working-directory: dev
         run: npm install
 
-     # Generate Color Variables
+      # Create dev/common folder to ensure it exists
+      - name: Create dev/common folder
+        run: mkdir -p dev/common
+
+      # Copy SCSS files to dev/common
+      - name: Copy SCSS files to dev
+        run: |
+          cp common/common/common.scss dev/common/common.scss
+          cp common/common/color_definitions.scss dev/common/color_definitions.scss
+
+      - name: Verify contents of common.scss
+        run: cat dev/common/common.scss
+
+      # List dev/common to verify the files were copied
+      - name: List dev/common folder contents
+        run: ls -la dev/common
+
+      # Generate light and dark mode colors
       - name: Generate Color Variables
-        working-directory: dev
-        run: node generate-colors.js
+        run: |
+          node dev/generate-colors.js
 
-
-     # Verify generated colors file with working-directory
+      # Check if generated-colors.scss exists
       - name: Verify generated colors file
-        working-directory: dev
-        run: cat common/generated-colors.scss
+        run: ls -la dev/common/generated-colors.scss
 
-     # Modify SCSS files
+      # Show contents of generated-colors.scss
+      - name: Show contents of generated-colors.scss
+        run: cat dev/common/generated-colors.scss
+
+      # Add import to common.scss
       - name: Modify SCSS files
-        working-directory: dev
-        run: echo '@import "./generated-colors.scss";' | cat - common/common.scss > temp && mv temp common/common.scss
+        run: |
+          echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
 
+      - name: Verify contents of common.scss after modification
+        run: cat dev/common/common.scss 
 
       # Compile SCSS
       - name: Compile SCSS
         working-directory: dev
-        run: npm run build-scss
+        run: npm run build-scss  
 
       # Clean up SCSS files
       - name: Clean up SCSS files
@@ -67,12 +77,11 @@ jobs:
           rm dev/common/color_definitions.scss
           rm dev/common/generated-colors.scss
 
-      # Commit and push changes back to the dev repository
-      - name: Commit and push changes
+      - name: Commit and push changes with Debugging
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
           git add -A  # Stages all new, modified, and deleted files
-          git commit -m "Automated extraction and SCSS compilation" || echo "No changes to commit"
-          git push origin master  # Push to the correct branch
+          git commit -m "Automated extraction and SCSS compilation"
+          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/msarson/discourse-highlightjs-clarion.git" HEAD:master
         continue-on-error: true  # Prevent immediate failure, see what happens
