@@ -27,6 +27,10 @@ jobs:
         working-directory: dev
         run: npm install
 
+      # List source files before copying
+      - name: List common directory contents before copying
+        run: ls -la common/common
+
       # Create dev/common folder to ensure it exists
       - name: Create dev/common folder
         run: mkdir -p dev/common
@@ -36,6 +40,10 @@ jobs:
         run: |
           cp common/common/common.scss dev/common/common.scss
           cp common/common/color_definitions.scss dev/common/color_definitions.scss
+
+      # List dev/common directory contents after copying
+      - name: List dev/common directory contents after copying
+        run: ls -la dev/common
 
       - name: Verify contents of common.scss
         run: cat dev/common/common.scss
