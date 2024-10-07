@@ -45,7 +45,7 @@ jobs:
 
       # Check if generated-colors.scss exists
       - name: Verify generated colors file
-        run: ls -la dev/common/generated-colors.scss
+        run: ls -la dev/common/comon/generated-colors.scss
 
       # Modify SCSS files
       - name: Modify SCSS files
@@ -59,9 +59,9 @@ jobs:
       # Clean up SCSS files
       - name: Clean up SCSS files
         run: |
-          rm dev/common/common.scss
-          rm dev/common/color_definitions.scss
-          rm dev/common/generated-colors.scss
+          rm dev/common/common/common.scss
+          rm dev/common/common/color_definitions.scss
+          rm dev/common/common/generated-colors.scss
 
       # Commit and push changes back to the dev repository
       - name: Commit and push changes
