@@ -47,10 +47,9 @@ jobs:
       - name: Verify generated colors file
         run: ls -la dev/common/generated-colors.scss
 
-      # Add import to common.scss
+      # Modify SCSS files
       - name: Modify SCSS files
-        run: |
-          echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
+        run: echo '@import "./generated-colors.scss";' | cat - dev/common/common/common.scss > temp && mv temp dev/common/common/common.scss
 
       # Compile SCSS
       - name: Compile SCSS
