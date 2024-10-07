@@ -45,7 +45,7 @@ jobs:
 
       # Check if generated-colors.scss exists
       - name: Verify generated colors file
-        run: ls -la dev/common/common/generated-colors.scss
+        run: cat dev/common/common/generated-colors.scss
 
       # Modify SCSS files
       - name: Modify SCSS files
