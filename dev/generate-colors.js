@@ -1,9 +1,9 @@
 const fs = require('fs');
 
-// Define base paths
-// Define base paths
-const inputFilePath = 'common/common/color_definitions.scss'; // Input file located in common/common
-const outputFilePath = 'dev/common/generated-colors.scss';    // Output file to be written to dev/common
+// Define input and output paths relative to the 'dev' directory
+const inputFilePath = '../common/common/color_definitions.scss'; // Adjusted path relative to dev
+const outputFilePath = 'common/generated-colors.scss';           // Output file within dev/common
+
 
 
 fs.readFile(inputFilePath, 'utf8', (err, data) => {
