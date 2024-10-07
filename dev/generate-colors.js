@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-// Define input and output paths relative to the 'dev' directory
-const inputFilePath = 'common/color_definitions.scss'; // Adjusted path relative to dev
-const outputFilePath = 'common/generated-colors.scss';           // Output file within dev/common
+// Define base paths
+const inputFilePath = 'dev/common/color_definitions.scss'; // Adjusted path to match the actual location
+const outputFilePath = 'dev/common/generated-colors.scss'; // Output file to be written to dev/common
+
 
 // Check if the input file exists before proceeding
 if (!fs.existsSync(inputFilePath)) {
