@@ -7,39 +7,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # Checkout the dev repository
+      - name: Checkout Dev Repository
         uses: actions/checkout@v3
 
+      # Pull the latest changes from the production repository
+      - name: Pull Production Repository
+        run: |
+          git submodule add https://github.com/msarson/discourse-highlightjs-clarion.git common
+          git submodule update --remote --merge
+
+      # Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Install Sass globally
       - name: Install Sass globally
         run: npm install -g sass
 
+      # Install dependencies in the dev folder
       - name: Install dependencies in dev folder
         working-directory: dev
         run: npm install
 
-      # Create dev/common folder to ensure it exists
-      - name: Create dev/common folder
-        run: mkdir -p dev/common
-
-      # Copy SCSS files to dev/common
-      - name: Copy SCSS files to dev
-        run: |
-          cp common/common.scss dev/common/common.scss
-          cp common/color_definitions.scss dev/common/color_definitions.scss
-
-      - name: Verify contents of common.scss
-        run: cat dev/common/common.scss
-
-      # List dev/common to verify the files were copied
-      - name: List dev/common folder contents
-        run: ls -la dev/common
-
-      # Generate light and dark mode colors
+      # Generate Color Variables
       - name: Generate Color Variables
         run: |
           node dev/generate-colors.js
@@ -48,23 +41,15 @@ jobs:
       - name: Verify generated colors file
         run: ls -la dev/common/generated-colors.scss
 
-      # Show contents of generated-colors.scss
-      - name: Show contents of generated-colors.scss
-        run: cat dev/common/generated-colors.scss
-
-
       # Add import to common.scss
       - name: Modify SCSS files
         run: |
           echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
 
-      - name: Verify contents of common.scss after modification
-        run: cat dev/common/common.scss 
-
       # Compile SCSS
       - name: Compile SCSS
         working-directory: dev
-        run: npm run build-scss  
+        run: npm run build-scss
 
       # Clean up SCSS files
       - name: Clean up SCSS files
@@ -73,11 +58,12 @@ jobs:
           rm dev/common/color_definitions.scss
           rm dev/common/generated-colors.scss
 
-      - name: Commit and push changes with Debugging
+      # Commit and push changes back to the dev repository
+      - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
           git add -A  # Stages all new, modified, and deleted files
           git commit -m "Automated extraction and SCSS compilation"
-          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/msarson/discourse-highlightjs-clarion.git" HEAD:master
+          git push origin HEAD:main
         continue-on-error: true  # Prevent immediate failure, see what happens
