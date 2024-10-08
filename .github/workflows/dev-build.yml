@@ -42,48 +42,46 @@ jobs:
           cp production/common/color_definitions.scss dev/common/color_definitions.scss
           cp production/common/clarion-language.js dev/common/clarion-language.js
 
-      # List dev/common directory contents after copying
-      - name: List dev/common directory contents after copying
-        run: ls -la dev/common
+      # # List dev/common directory contents after copying
+      # - name: List dev/common directory contents after copying
+      #   run: ls -la dev/common
 
-      - name: Verify contents of common.scss
-        run: cat dev/common/common.scss
+      # - name: Verify contents of common.scss
+      #   run: cat dev/common/common.scss
 
-      # List dev/common to verify the files were copied
-      - name: List dev/common folder contents
-        run: ls -la dev/common
+      # # List dev/common to verify the files were copied
+      # - name: List dev/common folder contents
+      #   run: ls -la dev/common
 
       # Generate light and dark mode colors
       - name: Generate Color Variables
         run: |
           node dev/generate-colors.js
 
-      # Check if generated-colors.scss exists
-      - name: Verify generated colors file
-        run: ls -la dev/common/generated-colors.scss
+      # # Check if generated-colors.scss exists
+      # - name: Verify generated colors file
+      #   run: ls -la dev/common/generated-colors.scss
 
-      # Show contents of generated-colors.scss
-      - name: Show contents of generated-colors.scss
-        run: cat dev/common/generated-colors.scss
+      # # Show contents of generated-colors.scss
+      # - name: Show contents of generated-colors.scss
+      #   run: cat dev/common/generated-colors.scss
 
       # Add import to common.scss
       - name: Modify SCSS files
         run: |
           echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
 
-      - name: Verify contents of common.scss after modification
-        run: cat dev/common/common.scss 
+      # - name: Verify contents of common.scss after modification
+      #   run: cat dev/common/common.scss 
 
       # Compile SCSS
       - name: Compile SCSS
         working-directory: dev
         run: npm run build-scss  
 
-      # Clean up SCSS files
-      - name: Clean up SCSS files
+      # Clean up SCSS files that were generated above.
+      - name: Clean up SCSS file leaving only production files
         run: |
-          rm dev/common/common.scss
-          rm dev/common/color_definitions.scss
           rm dev/common/generated-colors.scss
 
       - name: Commit and push changes
