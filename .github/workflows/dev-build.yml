@@ -64,7 +64,11 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
           git add -A  # Stages all new, modified, and deleted files
-          git commit -m "Automated extraction and SCSS compilation"
-          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/msarson/discourse-dev-highlight-clarion.git" HEAD:master
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            git commit -m "Automated extraction and SCSS compilation"
+            git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/msarson/discourse-dev-highlight-clarion.git" HEAD:master
+          fi
         
         
