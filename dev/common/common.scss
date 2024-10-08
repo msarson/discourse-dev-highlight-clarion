@@ -1,0 +1,68 @@
+@import "./generated-colors.scss";
+  .lang-clarion .hljs-keyword-hard {
+    color: var(--clarion-keyword-hard);
+    font-weight: bold;
+  }
+
+  .lang-clarion .hljs-keyword-soft {
+    color: var(--clarion-keyword-soft);
+    font-style: italic;
+  }
+
+  .lang-clarion .hljs-keyword-function {
+    color: var(--clarion-function);
+    font-style: italic;
+  }
+
+  .lang-clarion .hljs-keyword-implicit {
+    color: var(--clarion-implicit);
+  }
+
+  .lang-clarion .hljs-comment {
+    color: var(--clarion-comment);
+    font-style: italic;
+  }
+
+  .lang-clarion .hljs-string {
+    color: var(--clarion-string);
+  }
+
+  .lang-clarion .hljs-class-name {
+    color: var(--clarion-class-name);
+    font-weight: bold;
+  }
+
+  .lang-clarion .hljs-type {
+    color: var(--clarion-type);
+    font-style: italic;
+  }
+
+  .lang-clarion .hljs-attribute {
+    color: var(--clarion-attribute);
+    font-style: italic;
+  }
+
+  .lang-clarion .hljs-operator {
+    color: var(--clarion-operator);
+  }
+
+  .lang-clarion .hljs-label {
+    color: var(--clarion-label);
+    font-weight: bold;
+  }
+
+  .lang-clarion .hljs-function {
+    color: var(--clarion-function);
+    font-weight: bold;
+  }
+
+  .lang-clarion .hljs-class-label {
+    color: var(--clarion-class-label);
+    font-weight: bold;
+  }
+
+  .lang-clarion .hljs-picture-numeric-format {
+    color: var(--clarion-numeric-format);
+    font-weight: bold;  /* Make numeric formats stand out */
+  }
+  

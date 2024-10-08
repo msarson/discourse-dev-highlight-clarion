@@ -1,0 +1,16 @@
+:root {
+    --clarion-keyword-hard: #{dark-light-choose(unquote("#0000FF"), unquote("#569CD6"))};  /* Blue for keywords */
+    --clarion-keyword-soft: #{dark-light-choose(unquote("#0000FF"), unquote("#9CDCFE"))};  /* Same for soft keywords */
+    --clarion-function: #{dark-light-choose(unquote("#795E26"), unquote("#DCDCAA"))};  /* Dark brown for function names */
+    --clarion-implicit: #{dark-light-choose(unquote("#2B91AF"), unquote("#C586C0"))};  /* Aqua for types/classes */
+    --clarion-comment: #{dark-light-choose(unquote("#008000"), unquote("#6A9955"))};  /* Green for comments */
+    --clarion-string: #{dark-light-choose(unquote("#A31515"), unquote("#CE9178"))};  /* Red for strings */
+    --clarion-class-name: #{dark-light-choose(unquote("#2B91AF"), unquote("#4EC9B0"))};  /* Aqua for class names */
+    --clarion-type: #{dark-light-choose(unquote("#2B91AF"), unquote("#4EC9B0"))};  /* Aqua for types */
+    --clarion-attribute: #{dark-light-choose(unquote("#333333"), unquote("#D4D4D4"))};  /* Dark gray for attributes */
+    --clarion-operator: #{dark-light-choose(unquote("#333333"), unquote("#D4D4D4"))};  /* Dark gray for operators */
+    --clarion-label: #{dark-light-choose(unquote("#795E26"), unquote("#D7BA7D"))};  /* Brownish for labels */
+    --clarion-class-label: #{dark-light-choose(unquote("#2B91AF"), unquote("#4EC9B0"))};  /* Aqua for class labels */
+    --clarion-pciture-numeric-format: #{dark-light-choose(unquote("#FF4500"), unquote("#FFA500"))};
+  }
+  
