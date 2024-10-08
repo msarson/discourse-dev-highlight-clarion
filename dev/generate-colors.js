@@ -1,38 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-// Define base paths
-const inputFilePath = 'dev/common/color_definitions.scss'; // Adjusted path to match the actual location
-const outputFilePath = 'dev/common/generated-colors.scss'; // Output file to be written to dev/common
 
+// Define base paths
+const inputFilePath = 'dev/common/color_definitions.scss'; // Input file path
+const outputFilePath = 'dev/common/generated-colors.scss'; // Output file path
 
 // Check if the input file exists before proceeding
 if (!fs.existsSync(inputFilePath)) {
     console.error(`Input file not found: ${inputFilePath}`);
-
-    // List directory structure to help debug, excluding node_modules
-    console.log('Listing directories and files in the project, skipping node_modules:');
-    const listDirectory = (dirPath) => {
-        console.log(`\nDirectory: ${dirPath}`);
-        fs.readdirSync(dirPath).forEach(file => {
-            const fullPath = path.join(dirPath, file);
-            const stat = fs.statSync(fullPath);
-
-            // Skip the node_modules directory
-            if (file === 'node_modules' || file === '.git') {
-                console.log(`[DIR]  ${file} (skipped)`);
-                return;
-            }
-
-            if (stat.isDirectory()) {
-                console.log(`[DIR]  ${file}`);
-                listDirectory(fullPath); // Recursive call to list subdirectories
-            } else {
-                console.log(`[FILE] ${file}`);
-            }
-        });
-    };
-
-    listDirectory('../');  // List the directories from one level above the current working directory
     process.exit(1);  // Exit the process with an error code
 }
 
@@ -42,8 +17,6 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
         return;
     }
 
-    console.log('Contents of color_definitions.scss:', data); // Log the contents
-
     // Updated regular expression to match the dark-light-choose lines with interpolation
     const regex = /--([^:]+):\s*#\{dark-light-choose\(unquote\("([^"]+)"\),\s*unquote\("([^"]+)"\)\)\};/g;
     let output = ':root {\n';
@@ -51,7 +24,6 @@ fs.readFile(inputFilePath, 'utf8', (err, data) => {
     // Replace and create separate light and dark variables
     let match;
     while ((match = regex.exec(data)) !== null) {
-        console.log('Matched:', match); // Log matched results
         const variableName = match[1].trim();
         const lightColor = match[2].trim();
         const darkColor = match[3].trim();

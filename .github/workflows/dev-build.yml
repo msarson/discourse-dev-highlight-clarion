@@ -10,15 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check if PAT_TOKEN exists
-        run: |
-          if [ -z "${{ secrets.PAT_TOKEN }}" ]; then
-            echo "PAT_TOKEN is missing. Exiting..."
-            exit 1
-          else
-            echo "PAT_TOKEN is set correctly."
-          fi
-
       - name: Pull latest production subtree
         run: |
           git submodule update --init --recursive
@@ -36,10 +27,6 @@ jobs:
         working-directory: dev
         run: npm install
 
-      # List source files before copying
-      - name: List common directory contents before copying
-        run: ls -la production/common
-
       # Create dev/common folder to ensure it exists
       - name: Create dev/common folder
         run: mkdir -p dev/common
@@ -51,37 +38,15 @@ jobs:
           cp production/common/color_definitions.scss dev/common/color_definitions.scss
           cp production/common/clarion-language.js dev/common/clarion-language.js
 
-      # # List dev/common directory contents after copying
-      # - name: List dev/common directory contents after copying
-      #   run: ls -la dev/common
-
-      # - name: Verify contents of common.scss
-      #   run: cat dev/common/common.scss
-
-      # # List dev/common to verify the files were copied
-      # - name: List dev/common folder contents
-      #   run: ls -la dev/common
-
       # Generate light and dark mode colors
       - name: Generate Color Variables
         run: |
           node dev/generate-colors.js
 
-      # # Check if generated-colors.scss exists
-      # - name: Verify generated colors file
-      #   run: ls -la dev/common/generated-colors.scss
-
-      # # Show contents of generated-colors.scss
-      # - name: Show contents of generated-colors.scss
-      #   run: cat dev/common/generated-colors.scss
-
       # Add import to common.scss
       - name: Modify SCSS files
         run: |
           echo '@import "./generated-colors.scss";' | cat - dev/common/common.scss > temp && mv temp dev/common/common.scss
-
-      # - name: Verify contents of common.scss after modification
-      #   run: cat dev/common/common.scss 
 
       # Compile SCSS
       - name: Compile SCSS
@@ -89,10 +54,11 @@ jobs:
         run: npm run build-scss  
 
       # Clean up SCSS files that were generated above - testing pat
-      - name: Clean up SCSS file leaving only production files
+      - name: Clean up generated-colors.scss
         run: |
           rm dev/common/generated-colors.scss
 
+      # Commit and push changes    
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
