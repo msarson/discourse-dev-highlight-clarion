@@ -79,7 +79,7 @@ jobs:
         working-directory: dev
         run: npm run build-scss  
 
-      # Clean up SCSS files that were generated above
+      # Clean up SCSS files that were generated above - testing pat
       - name: Clean up SCSS file leaving only production files
         run: |
           rm dev/common/generated-colors.scss
