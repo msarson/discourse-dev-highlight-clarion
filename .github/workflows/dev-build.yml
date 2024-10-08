@@ -38,7 +38,7 @@ jobs:
       # Copy SCSS files to dev/common
       - name: Copy SCSS files to dev
         run: |
-          cp production/common.scss dev/common/common.scss
+          cp production/common/common.scss dev/common/common.scss
           cp production/common/color_definitions.scss dev/common/color_definitions.scss
           cp production/common/clarion-language.js dev/common/clarion-language.js
 
