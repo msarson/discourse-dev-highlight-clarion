@@ -1,10 +1,15 @@
 name: Build and Deploy Dev Environment
 
-on: push
+on:
+  push:
+      branches:
+        - master  # You can change this to the target branch where the PRs are opened
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    if: github.repository == 'msarson/discourse-dev-highlight-clarion'  # Only run this workflow for this repository
 
     steps:
       - name: Checkout code
@@ -58,8 +63,9 @@ jobs:
         run: |
           rm dev/common/generated-colors.scss
 
-      # Commit and push changes    
+      # Commit and push changes only if PAT_TOKEN is available
       - name: Commit and push changes
+        if: ${{ secrets.PAT_TOKEN != '' }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions"
