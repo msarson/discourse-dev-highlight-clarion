@@ -29,7 +29,7 @@ jobs:
 
       # List source files before copying
       - name: List common directory contents before copying
-        run: ls -la common/common
+        run: ls -la production/common
 
       # Create dev/common folder to ensure it exists
       - name: Create dev/common folder
@@ -38,9 +38,9 @@ jobs:
       # Copy SCSS files to dev/common
       - name: Copy SCSS files to dev
         run: |
-          cp common/common/common.scss dev/common/common.scss
-          cp common/common/color_definitions.scss dev/common/color_definitions.scss
-          cp common/common/clarion-language.js dev/common/clarion-language.js
+          cp production/common.scss dev/common/common.scss
+          cp production/common/color_definitions.scss dev/common/color_definitions.scss
+          cp production/common/clarion-language.js dev/common/clarion-language.js
 
       # List dev/common directory contents after copying
       - name: List dev/common directory contents after copying
